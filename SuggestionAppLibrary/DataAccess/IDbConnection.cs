@@ -6,7 +6,7 @@ public interface IDbConnection
    IMongoCollection<CategoryModel> CategoryCollection { get; }
    string CategoryCollectionName { get; }
    MongoClient Client { get; }
-   string DBName { get; }
+   string DbName { get; }
    IMongoCollection<StatusModel> StatusCollection { get; }
    string StatusCollectionName { get; }
    IMongoCollection<SuggestionModel> SuggestionCollection { get; }
