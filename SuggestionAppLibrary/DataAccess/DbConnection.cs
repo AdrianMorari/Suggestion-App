@@ -9,7 +9,7 @@ public class DbConnection : IDbConnection
 	private readonly IMongoDatabase _db;
 	private string _connectionId = "MongoDB";
 
-	public string DBName { get; private set; }
+	public string DbName { get; private set; }
 	public string CategoryCollectionName { get; private set; } = "categories";
 	public string StatusCollectionName { get; private set; } = "statuses";
 	public string UserCollectionName { get; private set; } = "users";
@@ -25,8 +25,8 @@ public class DbConnection : IDbConnection
 	{
 		_config = config;
 		Client = new MongoClient(_config.GetConnectionString(_connectionId));
-		DBName = _config["DatabaseName"];
-		_db = Client.GetDatabase(DBName);
+		DbName = _config["DatabaseName"];
+		_db = Client.GetDatabase(DbName);
 
 		CategoryCollection = _db.GetCollection<CategoryModel>(CategoryCollectionName);
 		StatusCollection = _db.GetCollection<StatusModel>(StatusCollectionName);

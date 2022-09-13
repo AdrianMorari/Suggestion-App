@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Components.Web;
 using SuggestionAppUI;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.ConfigureServices();
 
+builder.ConfigureServices();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
