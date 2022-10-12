@@ -1,6 +1,8 @@
 ﻿@page "/Create"
+@attribute [Authorize]
 @using SuggestionAppUI.Models
 @using SuggestionAppUI.Components;
+@inject AuthenticationStateProvider authProvider
 @inject ICategoryData categoryData
 @inject ISuggestionData suggestionData
 @inject IUserData userData
@@ -57,14 +59,13 @@
 @code {
     private CreateSuggestionModel suggestion = new();
     private List<CategoryModel> categories;
-    private UserModel loggedUser;
+    private UserModel loggedInUser;
 
     protected async override Task OnInitializedAsync()
     {
         categories = await categoryData.GetAllCategories();
 
-        //TODO Replace with lookup
-        loggedUser = await userData.GetUserFromAuthentication("abc-123");
+        loggedInUser = await authProvider.GetUserFromAuth(userData);
     }
 
     private void ClosePage()
@@ -77,7 +78,7 @@
         SuggestionModel s = new();
         s.Suggestion = suggestion.Suggestion;
         s.Description = suggestion.Description;
-        s.Author = new BasicUserModel(loggedUser);
+        s.Author = new BasicUserModel(loggedInUser);
         s.Category = categories.Where(c => c.Id == suggestion.CategoryId).FirstOrDefault();
 
         if (s.Category is null)
